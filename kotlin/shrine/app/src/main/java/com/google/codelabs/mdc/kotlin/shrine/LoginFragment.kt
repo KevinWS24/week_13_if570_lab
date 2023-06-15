@@ -8,10 +8,23 @@ import androidx.fragment.app.Fragment
 
 class LoginFragment : Fragment() {
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState:
-        Bundle?): View? {
-        val view = inflater.inflate(R.layout.shr_login_fragment, container,
-            false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState:Bundle?): View? {
+        val view = inflater.inflate(R.layout.shr_login_fragment, container, false)
+        view.next_button.setOnClickListener({
+            if (!isPasswordValid(password_edit_text.text!!)) {
+                password_text_input.error = getString(R.string.shr_error_password)
+            } else {
+                password_text_input.error = null
+                (activity as NavigationHost).navigateTo(ProductGridFragment(), false)
+            }
+        })
+        view.password_edit_text.setOnKeyListener({ _, _, _ ->
+            if (isPasswordValid(password_edit_text.text!!)) {
+                password_text_input.error = null
+            }
+            false
+        })
         return view
     }
+}
 }
