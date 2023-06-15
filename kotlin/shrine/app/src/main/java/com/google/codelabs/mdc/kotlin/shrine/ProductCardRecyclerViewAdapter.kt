@@ -14,6 +14,12 @@ class ProductCardRecyclerViewAdapter(private val productList: List<ProductEntry>
     }
 
     override fun onBindViewHolder(holder: ProductCardViewHolder, position: Int) {
+        if (position < productList.size) {
+            val product = productList[position]
+            holder.productTitle.text = product.title
+            holder.productPrice.text = product.price
+            ImageRequester.setImageFromUrl(holder.productImage, product.url)
+        }
     }
 
     override fun getItemCount(): Int {
